@@ -63,3 +63,90 @@
   .p-body{
     position:absolute;left:38px;top:14px;width:48px;height:30px;
     background:#fff;border:2px solid #1a1a1a;border-radius:50%;
+    z-index:1;
+  }
+  /* Black back leg / foot - INSIDE body at bottom-right, NOT a tail! */
+  .p-foot{
+    position:absolute;right:4px;bottom:-1px;width:22px;height:14px;
+    background:#1a1a1a;border-radius:50%;z-index:2;
+  }
+  /* Small black hump on top of back - like reference */
+  .p-hump{position:absolute;left:48px;top:10px;width:16px;height:10px;background:#1a1a1a;border-radius:50%;z-index:1}
+
+  /* Paws - ALWAYS visible, white border! */
+  .p-paw{position:absolute;bottom:0;width:14px;height:19px;background:#1a1a1a;border-radius:10px;z-index:5;transition:0.3s;border:1.5px solid #fff;box-shadow:0 0 0 1px #1a1a1a}
+  .p-paw.left{left:7px;transform:rotate(-8deg)}.p-paw.right{left:28px;transform:rotate(8deg)}
+  .panda-lie.sleep .p-paw.left{bottom:10px;left:5px;opacity:1}
+  .panda-lie.sleep .p-paw.right{bottom:10px;left:29px;opacity:1}
+  .panda-lie.sleep .p-eye{display:none}
+  .panda-lie.sleep .closed{display:block}
+  .zzz{position:absolute;top:-2px;right:-10px;font-size:11px;opacity:0}
+  .panda-lie.sleep .zzz{opacity:1}
+</style>
+</head>
+<body>
+  <span class="float f1">📦</span><span class="float f2">🫙</span>
+  <span class="float f3">🔩</span><span class="float f4">🌱</span>
+  <span class="float f5">📰</span><span class="float f6">🧴</span>
+  <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
+  <span class="bubble b4"></span><span class="bubble b5"></span><span class="bubble b6"></span>
+  <span class="bubble b7"></span>
+<div class="card">
+  <div class="logo">♻️</div>
+  <h2>Create Account</h2>
+  <p class="sub">Join Smart Waste Classifier</p>
+  <label>Username</label>
+  <input id="username" placeholder="Choose username - e.g. user1 or your_name">
+  <label>Email</label>
+  <input id="email" type="email" placeholder="Enter email">
+  <div class="pwd-row">
+    <label for="password">Password</label>
+    <div class="panda-lie" id="panda">
+      <div class="p-ear left"></div><div class="p-ear right"></div>
+      <div class="tuft"></div>
+      <!-- BACK first (behind head) -->
+      <div class="p-hump"></div>
+      <div class="p-body"><div class="p-foot"></div></div>
+      <!-- HEAD front -->
+      <div class="p-head">
+        <div class="patch left"><div class="p-eye"><div class="shine"></div></div></div>
+        <div class="patch right"><div class="p-eye"><div class="shine"></div></div></div>
+        <div class="closed left"></div><div class="closed right"></div>
+        <div class="cheek left"></div><div class="cheek right"></div>
+        <div class="p-nose"></div><div class="p-mouth"></div>
+      </div>
+      <div class="p-paw left"></div><div class="p-paw right"></div>
+      <div class="zzz">💤</div>
+    </div>
+    <span class="panda-hint" id="pandaText">I'm watching 👀</span>
+  </div>
+  <input id="password" type="password" placeholder="Choose password">
+  <button id="btn" onclick="register()">Create Account →</button>
+  <p id="msg"></p>
+  <p class="link">Already have account? <a href="login.html">Login</a></p>
+</div>
+<script>
+const API = "https://waste-app-m0ez.onrender.com";
+const pwd = document.getElementById('password');
+const panda = document.getElementById('panda');
+const pandaText = document.getElementById('pandaText');
+pwd.addEventListener('focus', ()=>{ panda.classList.add('sleep'); pandaText.textContent="Shhh... sleeping! 💤"; });
+pwd.addEventListener('blur', ()=>{ panda.classList.remove('sleep'); pandaText.textContent="I'm watching 👀"; });
+pwd.addEventListener('input', ()=>{ if(pwd.value.length>0){ panda.classList.add('sleep'); pandaText.textContent="Secret! Don't peek! 🤫"; } });
+async function register(){
+  const btn=document.getElementById('btn');const msg=document.getElementById('msg');
+  const username=document.getElementById('username').value.trim();
+  const email=document.getElementById('email').value.trim();const password=pwd.value;
+  if(!username||!email||!password){msg.textContent="Please fill all fields";msg.className="err";return;}
+  btn.disabled=true;btn.textContent="Creating...";msg.textContent="";
+  try{
+    const res=await fetch(API+"/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,email,password})});
+    const data=await res.json();
+    if(res.ok){msg.textContent="Account created! Go to Login...";msg.className="ok";setTimeout(()=>window.location.href="login.html",1200);}
+    else{msg.textContent=data.error||"Failed to register";msg.className="err";}
+  }catch(e){msg.textContent="Backend not running. Please try again.";msg.className="err";}
+  btn.disabled=false;btn.textContent="Create Account →";
+}
+</script>
+</body>
+</html>
