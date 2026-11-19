@@ -80,4 +80,82 @@
     content:'';position:absolute;width:10px;height:10px;background:#222;
     border-radius:50%;top:-5px;
   }
-  .panda::before{left:1px}.panda::after
+  .panda::before{left:1px}.panda::after{right:1px}
+  .eye{position:absolute;top:10px;width:7px;height:8px;background:#222;border-radius:50%;transition:0.2s}
+  .eye.left{left:6px}.eye.right{right:6px}
+  .eye::after{content:'';position:absolute;width:2.5px;height:2.5px;background:#fff;border-radius:50%;top:1.5px;left:2px}
+  .nose{position:absolute;left:50%;top:18px;transform:translateX(-50%);width:4px;height:3.5px;background:#222;border-radius:50%}
+  .mouth{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:8px;height:4px;border-bottom:1.5px solid #222;border-radius:0 0 6px 6px}
+  .paw{
+    position:absolute;top:6px;width:10px;height:11px;background:#222;border-radius:50%;
+    opacity:0;transform:scale(0.5);transition:0.25s;z-index:2;
+  }
+  .paw.left{left:3px}.paw.right{right:3px}
+  .panda.sleep .eye{height:1.5px;top:13px}
+  .panda.sleep .eye::after{display:none}
+  .panda.sleep .paw{opacity:1;transform:scale(1)}
+  .panda-hint{font-size:11px;color:#8B6FE8;font-weight:600;margin-left:2px}
+</style>
+</head>
+<body>
+  <span class="float f1">📦</span><span class="float f2">🫙</span>
+  <span class="float f3">🔩</span><span class="float f4">🌱</span>
+  <span class="float f5">📰</span><span class="float f6">🧴</span>
+
+  <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
+  <span class="bubble b4"></span><span class="bubble b5"></span><span class="bubble b6"></span>
+  <span class="bubble b7"></span>
+
+<div class="card">
+  <div class="logo">♻️</div>
+  <h2>Create Account</h2>
+  <p class="sub">Join Smart Waste Classifier</p>
+
+  <label>Username</label>
+  <input id="username" placeholder="Choose username - e.g. user1 or your_name">
+
+  <label>Email</label>
+  <input id="email" type="email" placeholder="Enter email">
+
+  <!-- Tiny Panda + Password in same row -->
+  <div class="pwd-row">
+    <label for="password">Password</label>
+    <div class="panda" id="panda">
+      <div class="eye left"></div><div class="eye right"></div>
+      <div class="paw left"></div><div class="paw right"></div>
+      <div class="nose"></div><div class="mouth"></div>
+    </div>
+    <span class="panda-hint" id="pandaText">I'm watching 👀</span>
+  </div>
+  <input id="password" type="password" placeholder="Choose password">
+
+  <button id="btn" onclick="register()">Create Account →</button>
+  <p id="msg"></p>
+  <p class="link">Already have account? <a href="login.html">Login</a></p>
+</div>
+
+<script>
+const API = "https://waste-app-m0ez.onrender.com";
+const pwd = document.getElementById('password');
+const panda = document.getElementById('panda');
+const pandaText = document.getElementById('pandaText');
+pwd.addEventListener('focus', ()=>{ panda.classList.add('sleep'); pandaText.textContent="I won't look! 🙈"; });
+pwd.addEventListener('blur', ()=>{ panda.classList.remove('sleep'); pandaText.textContent="I'm watching 👀"; });
+pwd.addEventListener('input', ()=>{ if(pwd.value.length>0){ panda.classList.add('sleep'); pandaText.textContent="Secret! 🤫"; } });
+async function register(){
+  const btn=document.getElementById('btn');const msg=document.getElementById('msg');
+  const username=document.getElementById('username').value.trim();
+  const email=document.getElementById('email').value.trim();const password=pwd.value;
+  if(!username||!email||!password){msg.textContent="Please fill all fields";msg.className="err";return;}
+  btn.disabled=true;btn.textContent="Creating...";msg.textContent="";
+  try{
+    const res=await fetch(API+"/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,email,password})});
+    const data=await res.json();
+    if(res.ok){msg.textContent="Account created! Go to Login...";msg.className="ok";setTimeout(()=>window.location.href="login.html",1200);}
+    else{msg.textContent=data.error||"Failed to register";msg.className="err";}
+  }catch(e){msg.textContent="Backend not running. Please try again.";msg.className="err";}
+  btn.disabled=false;btn.textContent="Create Account →";
+}
+</script>
+</body>
+</html>
