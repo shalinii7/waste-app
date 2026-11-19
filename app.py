@@ -25,14 +25,6 @@ def after_request(response):
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     return response
 
-@app.route('/', methods=['GET'])
-def home():
-    return jsonify({
-        "message": "API Running",
-        "model_loaded": model is not None if 'model' in globals() else False,
-        "classes": ['cardboard', 'glass', 'metal', 'organic', 'paper', 'plastic']
-    })
-
 # ---------- MODELS ----------
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
