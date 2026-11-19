@@ -21,7 +21,6 @@
   .b6{width:14px;height:14px;left:55%;top:88%;animation-duration:10s;animation-delay:.5s}
   .b7{width:64px;height:64px;left:12%;top:18%;animation-duration:16s;animation-delay:2.5s}
   @keyframes bubbleMove{0%{transform:translate(0,0);opacity:0}10%{opacity:0.9}100%{transform:translate(-10px,-380px);opacity:0}}
-
   .card{position:relative;z-index:2;background:#fff;width:100%;max-width:420px;padding:36px 32px 26px;border-radius:24px;box-shadow:0 18px 40px rgba(124,93,211,0.20);opacity:1 !important}
   .logo{font-size:46px;text-align:center;margin-bottom:6px}
   h2{text-align:center;font-size:27px;color:#5B3FBF;margin-bottom:6px}
@@ -36,41 +35,110 @@
   #msg{text-align:center;margin-top:14px;font-size:14px;min-height:20px}
   .ok{color:#198754}.err{color:#dc3545}
 
-  /* LYING PANDA - like your reference photo! */
+  /* FIXED LYING PANDA */
   .pwd-row{display:flex;align-items:center;gap:10px;margin:15px 0 7px}
   .pwd-row label{margin:0}
   .panda-hint{font-size:11px;color:#8B6FE8;font-weight:600}
-  .panda-lie{
-    width:62px;height:38px;position:relative;flex-shrink:0;transition:0.3s;
-  }
-  /* ears */
-  .p-ear{position:absolute;width:18px;height:18px;background:#1a1a1a;border-radius:50%;top:-6px;z-index:1}
-  .p-ear.left{left:2px}.p-ear.right{right:14px}
-  /* tuft */
-  .tuft{position:absolute;top:-9px;left:22px;font-size:11px;z-index:3;color:#1a1a1a;transform:rotate(-8deg)}
-  /* head */
-  .p-head{
-    position:absolute;left:0;top:0;width:46px;height:38px;background:#fff;
-    border:2px solid #1a1a1a;border-radius:50%;z-index:2;overflow:hidden;
-  }
-  /* eye patches - big oval like reference */
-  .patch{position:absolute;width:16px;height:20px;background:#1a1a1a;border-radius:50%;top:10px;transform:rotate(-12deg)}
-  .patch.left{left:3px}.patch.right{right:3px;transform:rotate(12deg)}
-  .p-eye{position:absolute;width:6px;height:7px;background:#fff;border-radius:50%;top:7px;left:5px}
-  .p-eye::after{content:"";position:absolute;width:4px;height:4px;background:#1a1a1a;border-radius:50%;top:1px;left:1px}
-  /* closed eye curve - hidden normally */
+  .panda-lie{width:72px;height:40px;position:relative;flex-shrink:0}
+  /* FIX 1: Ears - both on top edge of HEAD (head is 0-46px) */
+  .p-ear{position:absolute;width:17px;height:17px;background:#1a1a1a;border-radius:50%;top:-4px;z-index:1}
+  .p-ear.left{left:3px}
+  .p-ear.right{left:28px} /* FIXED: was right:14px (inside head), now left:28px (top-right of head) */
+  /* FIX 2: Tuft - white hair, NOT green plant! */
+  .tuft{position:absolute;top:-8px;left:20px;width:14px;height:10px;z-index:3}
+  .tuft::before,.tuft::after{content:"";position:absolute;width:7px;height:10px;background:#fff;border:1.8px solid #1a1a1a;border-radius:50% 50% 0 0}
+  .tuft::before{left:0;transform:rotate(-18deg)}
+  .tuft::after{right:0;transform:rotate(18deg)}
+  /* Head */
+  .p-head{position:absolute;left:0;top:0;width:46px;height:38px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:2;overflow:hidden}
+  /* FIX 3: Eye patches - black patch + BLACK eye + TINY white shine */
+  .patch{position:absolute;width:16px;height:20px;background:#1a1a1a;border-radius:50%;top:10px}
+  .patch.left{left:3px;transform:rotate(-12deg)}
+  .patch.right{right:3px;transform:rotate(12deg)}
+  .p-eye{position:absolute;width:7px;height:8px;background:#1a1a1a;border-radius:50%;top:6px;left:4px}
+  .shine{position:absolute;width:2.5px;height:2.5px;background:#fff;border-radius:50%;top:1px;left:1px}
   .closed{position:absolute;top:14px;width:10px;height:6px;border-bottom:2.5px solid #1a1a1a;border-radius:0 0 10px 10px;display:none}
   .closed.left{left:6px}.closed.right{right:6px}
-  /* cheeks */
   .cheek{position:absolute;width:11px;height:8px;background:#FFC9C9;border-radius:50%;top:22px;opacity:0.9}
   .cheek.left{left:0}.cheek.right{right:0}
   .p-nose{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:5px;height:4px;background:#1a1a1a;border-radius:50%;z-index:2}
   .p-mouth{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:9px;height:4px;border-bottom:1.5px solid #1a1a1a;border-radius:0 0 8px 8px}
-  /* body lying to right */
-  .p-body{position:absolute;right:0;bottom:0;width:24px;height:22px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:1}
-  .p-body::after{content:"";position:absolute;right:-2px;bottom:-2px;width:14px;height:16px;background:#1a1a1a;border-radius:50%}
-  /* paws under chin - resting like reference */
-  .p-paw{position:absolute;bottom:-2px;width:13px;height:18px;background:#1a1a1a;border-radius:10px;z-index:4;transition:0.3s;border:1px solid #000}
+  /* FIX 4: Body - flat lying ellipse, NOT circle! */
+  .p-body{position:absolute;right:0;bottom:0;width:32px;height:18px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:1}
+  .p-body::after{content:"";position:absolute;right:0;bottom:0;width:14px;height:14px;background:#1a1a1a;border-radius:50%}
+  /* Paws - FIXED to not overflow below */
+  .p-paw{position:absolute;bottom:0;width:13px;height:17px;background:#1a1a1a;border-radius:10px;z-index:4;transition:0.3s}
   .p-paw.left{left:6px;transform:rotate(-8deg)}.p-paw.right{left:26px;transform:rotate(8deg)}
-  /* SLEEPING - paws go UP to cover eyes! */
-  .panda-lie.sleep .p-paw.left{bottom
+  .panda-lie.sleep .p-paw.left{bottom:10px;left:4px}
+  .panda-lie.sleep .p-paw.right{bottom:10px;left:28px}
+  .panda-lie.sleep .patch{opacity:0.2}
+  .panda-lie.sleep .p-eye{display:none}
+  .panda-lie.sleep .closed{display:block}
+  /* FIX 5: ZZZ - inside, not overlapping Email! */
+  .zzz{position:absolute;top:-2px;right:-10px;font-size:11px;opacity:0;transition:0.3s}
+  .panda-lie.sleep .zzz{opacity:1}
+</style>
+</head>
+<body>
+  <span class="float f1">📦</span><span class="float f2">🫙</span>
+  <span class="float f3">🔩</span><span class="float f4">🌱</span>
+  <span class="float f5">📰</span><span class="float f6">🧴</span>
+  <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
+  <span class="bubble b4"></span><span class="bubble b5"></span><span class="bubble b6"></span>
+  <span class="bubble b7"></span>
+<div class="card">
+  <div class="logo">♻️</div>
+  <h2>Create Account</h2>
+  <p class="sub">Join Smart Waste Classifier</p>
+  <label>Username</label>
+  <input id="username" placeholder="Choose username - e.g. user1 or your_name">
+  <label>Email</label>
+  <input id="email" type="email" placeholder="Enter email">
+  <div class="pwd-row">
+    <label for="password">Password</label>
+    <div class="panda-lie" id="panda">
+      <div class="p-ear left"></div><div class="p-ear right"></div>
+      <div class="tuft"></div>
+      <div class="p-head">
+        <div class="patch left"><div class="p-eye"><div class="shine"></div></div></div>
+        <div class="patch right"><div class="p-eye"><div class="shine"></div></div></div>
+        <div class="closed left"></div><div class="closed right"></div>
+        <div class="cheek left"></div><div class="cheek right"></div>
+        <div class="p-nose"></div><div class="p-mouth"></div>
+      </div>
+      <div class="p-body"></div>
+      <div class="p-paw left"></div><div class="p-paw right"></div>
+      <div class="zzz">💤</div>
+    </div>
+    <span class="panda-hint" id="pandaText">I'm watching 👀</span>
+  </div>
+  <input id="password" type="password" placeholder="Choose password">
+  <button id="btn" onclick="register()">Create Account →</button>
+  <p id="msg"></p>
+  <p class="link">Already have account? <a href="login.html">Login</a></p>
+</div>
+<script>
+const API = "https://waste-app-m0ez.onrender.com";
+const pwd = document.getElementById('password');
+const panda = document.getElementById('panda');
+const pandaText = document.getElementById('pandaText');
+pwd.addEventListener('focus', ()=>{ panda.classList.add('sleep'); pandaText.textContent="Shhh... sleeping! 💤"; });
+pwd.addEventListener('blur', ()=>{ panda.classList.remove('sleep'); pandaText.textContent="I'm watching 👀"; });
+pwd.addEventListener('input', ()=>{ if(pwd.value.length>0){ panda.classList.add('sleep'); pandaText.textContent="Secret! Don't peek! 🤫"; } });
+async function register(){
+  const btn=document.getElementById('btn');const msg=document.getElementById('msg');
+  const username=document.getElementById('username').value.trim();
+  const email=document.getElementById('email').value.trim();const password=pwd.value;
+  if(!username||!email||!password){msg.textContent="Please fill all fields";msg.className="err";return;}
+  btn.disabled=true;btn.textContent="Creating...";msg.textContent="";
+  try{
+    const res=await fetch(API+"/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,email,password})});
+    const data=await res.json();
+    if(res.ok){msg.textContent="Account created! Go to Login...";msg.className="ok";setTimeout(()=>window.location.href="login.html",1200);}
+    else{msg.textContent=data.error||"Failed to register";msg.className="err";}
+  }catch(e){msg.textContent="Backend not running. Please try again.";msg.className="err";}
+  btn.disabled=false;btn.textContent="Create Account →";
+}
+</script>
+</body>
+</html>
