@@ -7,10 +7,21 @@
 <style>
   *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
   body{min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#EDE7F6 0%,#E3D7FF 45%,#D8CFFF 100%);padding:20px;position:relative}
+  /* Floating waste - 12 now, all on edges */
   .float{position:absolute;font-size:42px;opacity:0.55;animation:floaty 6s ease-in-out infinite;z-index:1}
-  .f1{top:8%;left:8%}.f2{top:14%;right:10%;font-size:48px;animation-delay:1s}
-  .f3{bottom:16%;left:10%;font-size:46px;animation-delay:.5s}.f4{bottom:12%;right:12%;animation-delay:1.5s}
-  .f5{top:48%;left:4%;font-size:38px;animation-delay:2s}.f6{top:52%;right:4%;font-size:40px;animation-delay:.8s}
+  .f1{top:8%;left:8%}
+  .f2{top:14%;right:10%;font-size:48px;animation-delay:1s}
+  .f3{bottom:16%;left:10%;font-size:46px;animation-delay:.5s}
+  .f4{bottom:12%;right:12%;animation-delay:1.5s}
+  .f5{top:48%;left:4%;font-size:38px;animation-delay:2s}
+  .f6{top:52%;right:4%;font-size:40px;animation-delay:.8s}
+  /* NEW emojis */
+  .f7{top:28%;left:5%;font-size:40px;animation-delay:0.3s}
+  .f8{top:28%;right:5%;font-size:44px;animation-delay:1.2s}
+  .f9{bottom:32%;left:5%;font-size:40px;animation-delay:0.7s}
+  .f10{bottom:32%;right:5%;font-size:42px;animation-delay:1.8s}
+  .f11{top:68%;left:14%;font-size:38px;animation-delay:2.2s}
+  .f12{top:68%;right:14%;font-size:40px;animation-delay:0.4s}
   @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
   .bubble{position:absolute;border-radius:50%;background:rgba(255,255,255,0.18);border:1.5px solid rgba(255,255,255,0.55);animation:bubbleMove linear infinite;z-index:1;pointer-events:none}
   .b1{width:18px;height:18px;left:18%;top:80%;animation-duration:11s}
@@ -34,20 +45,14 @@
   .link a{color:#7C5CD6;font-weight:700;text-decoration:none}
   #msg{text-align:center;margin-top:14px;font-size:14px;min-height:20px}
   .ok{color:#198754}.err{color:#dc3545}
-
-  /* PANDA FACE ONLY - Exactly like reference, NO body! */
   .pwd-row{display:flex;align-items:center;gap:10px;margin:15px 0 7px}
   .pwd-row label{margin:0}
   .panda-hint{font-size:11px;color:#8B6FE8;font-weight:600}
   .panda-face{width:52px;height:44px;position:relative;flex-shrink:0}
-  /* Ears */
   .p-ear{position:absolute;width:18px;height:18px;background:#1a1a1a;border-radius:50%;top:0;z-index:1}
   .p-ear.left{left:2px}.p-ear.right{right:2px}
-  /* Tuft - ONE tiny white bump on top, like reference */
   .tuft{position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:9px;height:8px;background:#fff;border-radius:50% 50% 50% 50% / 100% 100% 0 0;z-index:3}
-  /* Face */
   .p-head{position:absolute;left:1px;top:4px;width:50px;height:40px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:2;overflow:hidden}
-  /* Big eye patches - like reference */
   .patch{position:absolute;width:17px;height:21px;background:#1a1a1a;border-radius:50%;top:10px}
   .patch.left{left:3px;transform:rotate(-12deg)}
   .patch.right{right:3px;transform:rotate(12deg)}
@@ -55,15 +60,12 @@
   .shine{position:absolute;width:2.5px;height:2.5px;background:#fff;border-radius:50%;top:1px;left:1px}
   .closed{position:absolute;top:14px;width:10px;height:6px;border-bottom:2.5px solid #1a1a1a;border-radius:0 0 10px 10px;display:none}
   .closed.left{left:6px}.closed.right{right:6px}
-  /* Pink cheeks - like reference */
   .cheek{position:absolute;width:11px;height:8px;background:#FFC9C9;border-radius:50%;top:23px}
   .cheek.left{left:0}.cheek.right{right:0}
   .p-nose{position:absolute;left:50%;top:23px;transform:translateX(-50%);width:5px;height:4px;background:#1a1a1a;border-radius:50%;z-index:2}
   .p-mouth{position:absolute;left:50%;top:27px;transform:translateX(-50%);width:9px;height:4px;border-bottom:1.5px solid #1a1a1a;border-radius:0 0 8px 8px}
-  /* Paws under chin - like reference, ALWAYS visible! */
   .p-paw{position:absolute;bottom:-1px;width:14px;height:18px;background:#1a1a1a;border-radius:10px;z-index:5;transition:0.3s;border:1.5px solid #fff;box-shadow:0 0 0 1px #1a1a1a}
   .p-paw.left{left:8px;transform:rotate(-8deg)}.p-paw.right{right:8px;transform:rotate(8deg)}
-  /* When typing - paws move UP to cover eyes, STAY VISIBLE! */
   .panda-face.sleep .p-paw.left{bottom:10px;left:6px;opacity:1}
   .panda-face.sleep .p-paw.right{bottom:10px;right:6px;opacity:1}
   .panda-face.sleep .p-eye{display:none}
@@ -73,23 +75,31 @@
 </style>
 </head>
 <body>
+  <!-- OLD floating -->
   <span class="float f1">📦</span><span class="float f2">🫙</span>
   <span class="float f3">🔩</span><span class="float f4">🌱</span>
   <span class="float f5">📰</span><span class="float f6">🧴</span>
+  <!-- NEW floating - your emojis + plastic bag for plastic! -->
+  <span class="float f7">🥤</span>
+  <span class="float f8">🥕</span>
+  <span class="float f9">🥫</span>
+  <span class="float f10">🗞️</span>
+  <span class="float f11">🧺</span>
+  <span class="float f12">🛍️</span>
+
   <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
   <span class="bubble b4"></span><span class="bubble b5"></span><span class="bubble b6"></span>
   <span class="bubble b7"></span>
 <div class="card">
   <div class="logo">♻️</div>
   <h2>Create Account</h2>
-  <p class="sub">Join Smart Waste Classifier</p>
+  <p class="sub">Join Smart Waste Classifier 🚮</p>
   <label>Username</label>
   <input id="username" placeholder="Choose username - e.g. user1 or your_name">
   <label>Email</label>
   <input id="email" type="email" placeholder="Enter email">
   <div class="pwd-row">
     <label for="password">Password</label>
-    <!-- FACE ONLY Panda -->
     <div class="panda-face" id="panda">
       <div class="p-ear left"></div><div class="p-ear right"></div>
       <div class="tuft"></div>
