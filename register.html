@@ -11,59 +11,104 @@
     background:linear-gradient(135deg,#EDE7F6 0%,#E3D7FF 45%,#D8CFFF 100%);
     padding:20px;position:relative;overflow:hidden;
   }
-  /* Floating waste emojis */
-  .float{
-    position:absolute;font-size:42px;opacity:0.55;
-    animation:floaty 6s ease-in-out infinite;
-    filter:drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+  /* Floating waste - same as before */
+  .float{position:absolute;font-size:42px;opacity:0.55;animation:floaty 6s ease-in-out infinite;filter:drop-shadow(0 6px 10px rgba(0,0,0,0.12));z-index:1}
+  .f1{top:8%;left:8%}.f2{top:14%;right:10%;font-size:48px;animation-delay:1s}
+  .f3{bottom:16%;left:10%;font-size:46px;animation-delay:.5s}.f4{bottom:12%;right:12%;animation-delay:1.5s}
+  .f5{top:48%;left:4%;font-size:38px;animation-delay:2s}.f6{top:52%;right:4%;font-size:40px;animation-delay:.8s}
+  @keyframes floaty{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-16px) rotate(4deg)}}
+
+  /* Transparent bubbles - FEW, freely moving */
+  .bubble{
+    position:absolute;border-radius:50%;
+    background:rgba(255,255,255,0.18);
+    border:1.5px solid rgba(255,255,255,0.55);
+    box-shadow:inset 0 0 12px rgba(255,255,255,0.6);
+    animation:bubbleMove linear infinite;
+    z-index:1;pointer-events:none;
   }
-  .f1{top:8%;left:8%;animation-delay:0s}
-  .f2{top:14%;right:10%;font-size:48px;animation-delay:1s}
-  .f3{bottom:16%;left:10%;font-size:46px;animation-delay:0.5s}
-  .f4{bottom:12%;right:12%;animation-delay:1.5s}
-  .f5{top:48%;left:4%;font-size:38px;animation-delay:2s}
-  .f6{top:52%;right:4%;font-size:40px;animation-delay:0.8s}
-  @keyframes floaty{
-    0%,100%{transform:translateY(0) rotate(-4deg)}
-    50%{transform:translateY(-16px) rotate(4deg)}
+  .b1{width:18px;height:18px;left:18%;top:80%;animation-duration:11s;animation-delay:0s}
+  .b2{width:32px;height:32px;left:68%;top:85%;animation-duration:14s;animation-delay:2s}
+  .b3{width:12px;height:12px;left:42%;top:90%;animation-duration:9s;animation-delay:1s}
+  .b4{width:48px;height:48px;left:82%;top:75%;animation-duration:17s;animation-delay:3s}
+  .b5{width:22px;height:22px;left:8%;top:70%;animation-duration:12s;animation-delay:1.5s}
+  .b6{width:14px;height:14px;left:55%;top:88%;animation-duration:10s;animation-delay:0.5s}
+  @keyframes bubbleMove{
+    0%{transform:translate(0,0) scale(1);opacity:0}
+    10%{opacity:0.9}
+    50%{transform:translate(28px,-180px) scale(1.08)}
+    90%{opacity:0.7}
+    100%{transform:translate(-18px,-420px) scale(1.15);opacity:0}
   }
+
   .card{
-    position:relative;z-index:2;background:#ffffff;width:100%;max-width:420px;
-    padding:36px 32px 26px;border-radius:24px;
+    position:relative;z-index:2;background:#fff;width:100%;max-width:420px;
+    padding:38px 32px 26px;border-radius:24px;
     box-shadow:0 18px 40px rgba(124,93,211,0.20);
-    animation:pop 0.6s ease;
+    animation:pop .6s ease;overflow:visible;
   }
-  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-  .logo{font-size:46px;text-align:center;margin-bottom:6px;animation:floaty 4s ease-in-out infinite}
+  @keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+  /* Recycle - NO float now! */
+  .logo{font-size:46px;text-align:center;margin-bottom:6px}
   h2{text-align:center;font-size:27px;color:#5B3FBF;margin-bottom:6px}
-  .sub{text-align:center;color:#7a7a9a;font-size:14px;margin-bottom:24px}
+  .sub{text-align:center;color:#7a7a9a;font-size:14px;margin-bottom:20px}
   label{display:block;font-size:13px;font-weight:600;color:#444;margin:15px 0 7px}
   input{
     width:100%;padding:13px 15px;border:1.5px solid #E0D9FF;
-    border-radius:13px;font-size:15px;outline:none;transition:0.2s;background:#F8F6FF;
+    border-radius:13px;font-size:15px;outline:none;transition:.2s;background:#F8F6FF;
   }
-  input:focus{border-color:#8B6FE8;background:#fff;box-shadow:0 0 0 4px rgba(139,111,232,0.18)}
+  input:focus{border-color:#8B6FE8;background:#fff;box-shadow:0 0 0 4px rgba(139,111,232,.18)}
   button{
     width:100%;margin-top:26px;padding:14px;border:none;border-radius:13px;
     background:linear-gradient(135deg,#8B6FE8,#B28DFF);color:#fff;
-    font-size:16px;font-weight:700;cursor:pointer;transition:0.2s;
-    box-shadow:0 10px 22px rgba(139,111,232,0.35);
+    font-size:16px;font-weight:700;cursor:pointer;transition:.2s;
+    box-shadow:0 10px 22px rgba(139,111,232,.35);
   }
   button:hover{transform:translateY(-2px)}
-  button:disabled{opacity:0.7;transform:none}
   .link{text-align:center;margin-top:20px;font-size:14px;color:#7a7a9a}
   .link a{color:#7C5CD6;font-weight:700;text-decoration:none}
   #msg{text-align:center;margin-top:14px;font-size:14px;min-height:20px}
   .ok{color:#198754}.err{color:#dc3545}
+
+  /* PANDA */
+  .panda-wrap{display:flex;justify-content:center;margin:2px 0 0;height:64px;position:relative}
+  .panda{
+    width:72px;height:62px;background:#fff;border:2.5px solid #222;border-radius:50%;
+    position:relative;box-shadow:0 4px 12px rgba(0,0,0,0.08);transition:0.25s;
+  }
+  .panda::before,.panda::after{
+    content:'';position:absolute;width:22px;height:22px;background:#222;
+    border-radius:50%;top:-10px;
+  }
+  .panda::before{left:2px}.panda::after{right:2px}
+  .eye{
+    position:absolute;top:22px;width:14px;height:16px;background:#222;border-radius:50%;
+    transition:0.2s;
+  }
+  .eye.left{left:14px}.eye.right{right:14px}
+  .eye::after{content:'';position:absolute;width:5px;height:5px;background:#fff;border-radius:50%;top:3px;left:4px}
+  .nose{position:absolute;left:50%;top:38px;transform:translateX(-50%);width:9px;height:7px;background:#222;border-radius:50%}
+  .mouth{position:absolute;left:50%;top:46px;transform:translateX(-50%);width:16px;height:8px;border-bottom:2px solid #222;border-radius:0 0 10px 10px}
+  .paw{
+    position:absolute;top:14px;width:20px;height:22px;background:#222;border-radius:50%;
+    opacity:0;transform:scale(0.5);transition:0.25s;z-index:2;
+  }
+  .paw.left{left:8px}.paw.right{right:8px}
+  .panda-text{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);font-size:11px;color:#8B6FE8;white-space:nowrap;font-weight:600}
+  /* When typing password - panda closes eyes + paws cover */
+  .panda.sleep .eye{height:3px;top:29px}
+  .panda.sleep .eye::after{display:none}
+  .panda.sleep .paw{opacity:1;transform:scale(1)}
+  .panda.sleep{transform:translateY(3px)}
 </style>
 </head>
 <body>
-  <span class="float f1">📦</span>
-  <span class="float f2">🫙</span>
-  <span class="float f3">🔩</span>
-  <span class="float f4">🌱</span>
-  <span class="float f5">📰</span>
-  <span class="float f6">🧴</span>
+  <span class="float f1">📦</span><span class="float f2">🫙</span>
+  <span class="float f3">🔩</span><span class="float f4">🌱</span>
+  <span class="float f5">📰</span><span class="float f6">🧴</span>
+
+  <span class="bubble b1"></span><span class="bubble b2"></span><span class="bubble b3"></span>
+  <span class="bubble b4"></span><span class="bubble b5"></span><span class="bubble b6"></span>
 
 <div class="card">
   <div class="logo">♻️</div>
@@ -76,6 +121,16 @@
   <label>Email</label>
   <input id="email" type="email" placeholder="Enter email">
 
+  <!-- Panda peeks here -->
+  <div class="panda-wrap">
+    <div class="panda" id="panda">
+      <div class="eye left"></div><div class="eye right"></div>
+      <div class="paw left"></div><div class="paw right"></div>
+      <div class="nose"></div><div class="mouth"></div>
+      <div class="panda-text" id="pandaText">I'm watching... 👀</div>
+    </div>
+  </div>
+
   <label>Password</label>
   <input id="password" type="password" placeholder="Choose password">
 
@@ -86,12 +141,28 @@
 
 <script>
 const API = "https://waste-app-m0ez.onrender.com";
+const pwd = document.getElementById('password');
+const panda = document.getElementById('panda');
+const pandaText = document.getElementById('pandaText');
+
+pwd.addEventListener('focus', ()=>{
+  panda.classList.add('sleep');
+  pandaText.textContent = "Okay, I won't look! 🙈";
+});
+pwd.addEventListener('blur', ()=>{
+  panda.classList.remove('sleep');
+  pandaText.textContent = "I'm watching... 👀";
+});
+pwd.addEventListener('input', ()=>{
+  if(pwd.value.length>0){ panda.classList.add('sleep'); pandaText.textContent="Secret! Shhh... 🤫"; }
+});
+
 async function register(){
   const btn=document.getElementById('btn');
   const msg=document.getElementById('msg');
   const username=document.getElementById('username').value.trim();
   const email=document.getElementById('email').value.trim();
-  const password=document.getElementById('password').value;
+  const password=pwd.value;
   if(!username||!email||!password){msg.textContent="Please fill all fields";msg.className="err";return;}
   btn.disabled=true;btn.textContent="Creating...";msg.textContent="";
   try{
