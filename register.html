@@ -35,23 +35,18 @@
   #msg{text-align:center;margin-top:14px;font-size:14px;min-height:20px}
   .ok{color:#198754}.err{color:#dc3545}
 
-  /* FIXED LYING PANDA */
+  /* FIXED PANDA - Exactly like your reference */
   .pwd-row{display:flex;align-items:center;gap:10px;margin:15px 0 7px}
   .pwd-row label{margin:0}
   .panda-hint{font-size:11px;color:#8B6FE8;font-weight:600}
-  .panda-lie{width:72px;height:40px;position:relative;flex-shrink:0}
-  /* FIX 1: Ears - both on top edge of HEAD (head is 0-46px) */
+  .panda-lie{width:74px;height:40px;position:relative;flex-shrink:0}
+  /* Ears */
   .p-ear{position:absolute;width:17px;height:17px;background:#1a1a1a;border-radius:50%;top:-4px;z-index:1}
-  .p-ear.left{left:3px}
-  .p-ear.right{left:28px} /* FIXED: was right:14px (inside head), now left:28px (top-right of head) */
-  /* FIX 2: Tuft - white hair, NOT green plant! */
-  .tuft{position:absolute;top:-8px;left:20px;width:14px;height:10px;z-index:3}
-  .tuft::before,.tuft::after{content:"";position:absolute;width:7px;height:10px;background:#fff;border:1.8px solid #1a1a1a;border-radius:50% 50% 0 0}
-  .tuft::before{left:0;transform:rotate(-18deg)}
-  .tuft::after{right:0;transform:rotate(18deg)}
+  .p-ear.left{left:3px}.p-ear.right{left:28px}
+  /* FIX 1: Tuft - ONE tiny white sprout, NOT horns! */
+  .tuft{position:absolute;top:-6px;left:21px;width:8px;height:9px;background:#fff;border:1.8px solid #1a1a1a;border-radius:50% 50% 50% 50% / 80% 80% 20% 20%;z-index:3}
   /* Head */
   .p-head{position:absolute;left:0;top:0;width:46px;height:38px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:2;overflow:hidden}
-  /* FIX 3: Eye patches - black patch + BLACK eye + TINY white shine */
   .patch{position:absolute;width:16px;height:20px;background:#1a1a1a;border-radius:50%;top:10px}
   .patch.left{left:3px;transform:rotate(-12deg)}
   .patch.right{right:3px;transform:rotate(12deg)}
@@ -59,23 +54,21 @@
   .shine{position:absolute;width:2.5px;height:2.5px;background:#fff;border-radius:50%;top:1px;left:1px}
   .closed{position:absolute;top:14px;width:10px;height:6px;border-bottom:2.5px solid #1a1a1a;border-radius:0 0 10px 10px;display:none}
   .closed.left{left:6px}.closed.right{right:6px}
-  .cheek{position:absolute;width:11px;height:8px;background:#FFC9C9;border-radius:50%;top:22px;opacity:0.9}
+  .cheek{position:absolute;width:11px;height:8px;background:#FFC9C9;border-radius:50%;top:22px}
   .cheek.left{left:0}.cheek.right{right:0}
   .p-nose{position:absolute;left:50%;top:22px;transform:translateX(-50%);width:5px;height:4px;background:#1a1a1a;border-radius:50%;z-index:2}
   .p-mouth{position:absolute;left:50%;top:26px;transform:translateX(-50%);width:9px;height:4px;border-bottom:1.5px solid #1a1a1a;border-radius:0 0 8px 8px}
-  /* FIX 4: Body - flat lying ellipse, NOT circle! */
+  /* FIX 2: Body - NO tail! Just white lying body, NO black blob! */
   .p-body{position:absolute;right:0;bottom:0;width:32px;height:18px;background:#fff;border:2px solid #1a1a1a;border-radius:50%;z-index:1}
-  .p-body::after{content:"";position:absolute;right:0;bottom:0;width:14px;height:14px;background:#1a1a1a;border-radius:50%}
-  /* Paws - FIXED to not overflow below */
-  .p-paw{position:absolute;bottom:0;width:13px;height:17px;background:#1a1a1a;border-radius:10px;z-index:4;transition:0.3s}
+  /* FIX 3: Paws - ALWAYS visible! White border so black paw stands out on black patch! */
+  .p-paw{position:absolute;bottom:0;width:14px;height:18px;background:#1a1a1a;border-radius:10px;z-index:5;transition:0.3s;border:1.5px solid #fff;box-shadow:0 0 0 1px #1a1a1a}
   .p-paw.left{left:6px;transform:rotate(-8deg)}.p-paw.right{left:26px;transform:rotate(8deg)}
-  .panda-lie.sleep .p-paw.left{bottom:10px;left:4px}
-  .panda-lie.sleep .p-paw.right{bottom:10px;left:28px}
-  .panda-lie.sleep .patch{opacity:0.2}
+  /* When sleeping - paws move UP but STAY VISIBLE! Patch does NOT fade! */
+  .panda-lie.sleep .p-paw.left{bottom:10px;left:4px;opacity:1}
+  .panda-lie.sleep .p-paw.right{bottom:10px;left:28px;opacity:1}
   .panda-lie.sleep .p-eye{display:none}
   .panda-lie.sleep .closed{display:block}
-  /* FIX 5: ZZZ - inside, not overlapping Email! */
-  .zzz{position:absolute;top:-2px;right:-10px;font-size:11px;opacity:0;transition:0.3s}
+  .zzz{position:absolute;top:-2px;right:-10px;font-size:11px;opacity:0}
   .panda-lie.sleep .zzz{opacity:1}
 </style>
 </head>
