@@ -10,6 +10,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 app = Flask(__name__)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        resp = jsonify({"ok": True})
+        resp.headers.add("Access-Control-Allow-Origin", "*")
+        resp.headers.add("Access-Control-Allow-Headers", "Content-Type,Authorization")
+        resp.headers.add("Access-Control-Allow-Methods", "GET,POST,PUT,DELETE,OPTIONS")
+        return resp
+
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 DB_PATH = os.path.join(BASE_DIR, "users.db")
 app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{DB_PATH}"
