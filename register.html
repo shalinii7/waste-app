@@ -2,80 +2,88 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Register - Smart Waste ♻️</title>
+<title>Create Account - Smart Waste Classifier</title>
 <style>
-  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',sans-serif}
-  body{background:linear-gradient(135deg,#0f5132,#198754);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
-  .card{width:100%;max-width:400px;background:#fff;border-radius:20px;padding:32px;box-shadow:0 20px 40px rgba(0,0,0,.3)}
-  .logo{text-align:center;font-size:48px}
-  h1{text-align:center;color:#0f5132;font-size:26px;margin:8px 0 4px}
-  .sub{text-align:center;color:#666;font-size:13px;margin-bottom:20px}
-  label{font-size:13px;font-weight:600;color:#333;display:block;margin:14px 0 6px}
-  input{width:100%;padding:13px;border:2px solid #e9ecef;border-radius:12px;font-size:15px;outline:none;display:block}
-  input:focus{border-color:#198754}
-  button{width:100%;padding:14px;border:none;border-radius:12px;background:#198754;color:#fff;font-size:16px;font-weight:700;cursor:pointer;margin-top:20px;display:block}
-  button:disabled{background:#aaa}
-  .link{text-align:center;font-size:13px;margin-top:14px;color:#666}
-  .link a{color:#198754;font-weight:600;text-decoration:none}
-  #msg{text-align:center;font-size:13px;margin-top:12px;min-height:18px}
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',system-ui,sans-serif}
+  body{
+    min-height:100vh;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(135deg,#0f5132 0%,#198754 45%,#20c997 100%);
+    padding:20px;position:relative;overflow:hidden;
+  }
+  body::before,body::after{
+    content:'';position:absolute;border-radius:50%;
+    background:rgba(255,255,255,0.12);filter:blur(10px);
+  }
+  body::before{width:320px;height:320px;top:-80px;left:-80px}
+  body::after{width:380px;height:380px;bottom:-100px;right:-60px}
+  .card{
+    position:relative;z-index:1;
+    background:#ffffff;width:100%;max-width:420px;
+    padding:38px 34px 28px;border-radius:22px;
+    box-shadow:0 20px 50px rgba(0,0,0,0.25);
+  }
+  .logo{font-size:48px;text-align:center;margin-bottom:8px}
+  h2{text-align:center;font-size:28px;color:#0f5132;margin-bottom:6px}
+  .sub{text-align:center;color:#6c757d;font-size:14px;margin-bottom:26px}
+  label{display:block;font-size:13px;font-weight:600;color:#343a40;margin:16px 0 7px}
+  input{
+    width:100%;padding:13px 15px;border:1.5px solid #dee2e6;
+    border-radius:12px;font-size:15px;outline:none;transition:0.2s;background:#f8f9fa;
+  }
+  input:focus{border-color:#198754;background:#fff;box-shadow:0 0 0 4px rgba(25,135,84,0.15)}
+  button{
+    width:100%;margin-top:26px;padding:14px;border:none;border-radius:12px;
+    background:linear-gradient(135deg,#198754,#20c997);color:#fff;
+    font-size:16px;font-weight:700;cursor:pointer;transition:0.2s;
+    box-shadow:0 8px 20px rgba(25,135,84,0.35);
+  }
+  button:hover{transform:translateY(-2px);box-shadow:0 12px 24px rgba(25,135,84,0.45)}
+  button:disabled{opacity:0.7;transform:none}
+  .link{text-align:center;margin-top:20px;font-size:14px;color:#6c757d}
+  .link a{color:#198754;font-weight:700;text-decoration:none}
+  #msg{text-align:center;margin-top:14px;font-size:14px;min-height:20px}
+  .ok{color:#198754}.err{color:#dc3545}
 </style>
 </head>
 <body>
 <div class="card">
   <div class="logo">♻️</div>
-  <h1>Create Account</h1>
+  <h2>Create Account</h2>
   <p class="sub">Join Smart Waste Classifier</p>
 
   <label>Username</label>
-  <input type="text" id="username" placeholder="Choose username - e.g. user1 or your_name">
+  <input id="username" placeholder="Choose username - e.g. user1 or your_name">
 
   <label>Email</label>
-  <input type="email" id="email" placeholder="Enter email">
+  <input id="email" type="email" placeholder="Enter email">
 
   <label>Password</label>
-  <input type="password" id="password" placeholder="Choose password">
+  <input id="password" type="password" placeholder="Choose password">
 
-  <button id="btn" onclick="doRegister()">Create Account →</button>
+  <button id="btn" onclick="register()">Create Account →</button>
   <p id="msg"></p>
-
   <p class="link">Already have account? <a href="login.html">Login</a></p>
 </div>
 
 <script>
-const API = "https://waste-app-m6ez.onrender.com";
-async function doRegister(){
-  let username = document.getElementById('username').value.trim();
-  let email = document.getElementById('email').value.trim();
-  let password = document.getElementById('password').value;
-  let msg = document.getElementById('msg');
-  let btn = document.getElementById('btn');
-  if(!username || !email || !password){
-    msg.style.color='red'; msg.textContent='Fill all fields!'; return;
-  }
-  btn.textContent='Creating...'; btn.disabled=true;
+const API = "https://waste-app-m0ez.onrender.com";
+async function register(){
+  const btn=document.getElementById('btn');
+  const msg=document.getElementById('msg');
+  const username=document.getElementById('username').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const password=document.getElementById('password').value;
+  if(!username||!email||!password){msg.textContent="Please fill all fields";msg.className="err";return;}
+  btn.disabled=true;btn.textContent="Creating...";msg.textContent="";
   try{
-    let res = await fetch(API + '/register', {
-      method:'POST',
-      headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({username: username, email: email, password: password})
-    });
-    let data = await res.json();
-    if(res.ok || data.success || data.user_id){
-      msg.style.color='green'; msg.textContent='Account created! Go to Login...';
-      localStorage.setItem('username', username);
-      setTimeout(()=>{ location.href='login.html'; }, 800);
-    } else {
-      msg.style.color='red'; msg.textContent = data.message || data.error || 'Register failed! User may exist';
-      btn.textContent='Create Account →'; btn.disabled=false;
-    }
-  }catch(e){
-    msg.style.color='red'; msg.textContent='Backend not running! Start backend/app.py';
-    btn.textContent='Create Account →'; btn.disabled=false;
-  }
+    const res=await fetch(API+"/register",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({username,email,password})});
+    const data=await res.json();
+    if(res.ok){msg.textContent="Account created! Go to Login...";msg.className="ok";setTimeout(()=>window.location.href="login.html",1200);}
+    else{msg.textContent=data.error||"Failed to register";msg.className="err";}
+  }catch(e){msg.textContent="Backend not running. Please try again.";msg.className="err";}
+  btn.disabled=false;btn.textContent="Create Account →";
 }
 </script>
 </body>
