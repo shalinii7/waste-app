@@ -240,6 +240,14 @@ def admin_users():
         })
     return jsonify({"total_users": len(result), "users": result})
 
+# ---------- ADMIN LOGIN ----------
+@app.route('/admin/login', methods=['POST', 'OPTIONS'])
+def admin_login():
+    data = request.get_json(silent=True) or {}
+    if data.get('username') == 'LIGHT' and data.get('password') == 'WORLD':
+        return jsonify({"success": True, "message": "Admin login success"})
+    return jsonify({"success": False, "message": "Invalid admin credentials"}), 401
+
 # ---------- RUN ----------
 import os
 if __name__ == '__main__':
