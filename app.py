@@ -225,6 +225,21 @@ def clear_history():
         print("CLEAR ERROR:", e)
         return jsonify({"error": str(e)}), 500
 
+# ---------- ADMIN - ALL USERS ----------
+@app.route('/admin/users', methods=['GET', 'OPTIONS'])
+def admin_users():
+    users = User.query.all()
+    result = []
+    for u in users:
+        total = History.query.filter_by(username=u.username).count()
+        result.append({
+            "id": u.id,
+            "username": u.username,
+            "email": u.email,
+            "total_classifications": total
+        })
+    return jsonify({"total_users": len(result), "users": result})
+
 # ---------- RUN ----------
 import os
 if __name__ == '__main__':
