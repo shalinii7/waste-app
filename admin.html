@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Login</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif; }
+body { background:#E6E6FA; min-height:100vh; display:flex; justify-content:center; align-items:center; padding:20px; }
+.card { background:white; width:100%; max-width:550px; border-radius:25px; padding:30px 25px; text-align:center; box-shadow:0 10px 30px rgba(0,0,0,0.1); }
+.panda { width:80px; height:80px; border-radius:50%; object-fit:cover; }
+h1 { font-size:22px; color:#4A4A7A; margin:5px 0; }
+.subtitle { color:#888; font-size:13px; margin-bottom:20px; }
+input { width:100%; padding:12px; margin:8px 0; border:1.5px solid #DDD; border-radius:12px; font-size:14px; outline:none; }
+input:focus { border-color:#7A7AC8; }
+button { width:100%; padding:13px; border:none; border-radius:12px; background:#7A7AC8; color:white; font-size:15px; font-weight:600; cursor:pointer; margin-top:10px; }
+#msg { color:red; font-size:13px; margin-top:10px; }
+#total { font-weight:700; color:#7A7AC8; margin:15px 0; }
+table { width:100%; border-collapse:collapse; font-size:14px; }
+th { background:#E6E6FA; color:#4A4A7A; padding:10px; }
+td { padding:10px; border-bottom:1px solid #EEE; }
+#adminBox { display:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <img src="panda.jpg" class="panda">
+  <h1>Admin Login 👩‍💻</h1>
+  <p class="subtitle">Group Admin - Smart Waste Classifier</p>
+
+  <div id="loginBox">
+    <input id="adminUser" placeholder="Admin Username - e.g. LIGHT">
+    <input id="adminPass" type="password" placeholder="Admin Password">
+    <button onclick="adminLogin()">Login as Admin</button>
+    <div id="msg"></div>
+  </div>
+
+  <div id="adminBox">
+    <div id="total">Loading...</div>
+    <table>
+      <thead><tr><th>ID</th><th>Username</th><th>Email</th><th>Classifications</th></tr></thead>
+      <tbody id="tbody"></tbody>
+    </table>
+    <button onclick="loadUsers()">Refresh</button>
+  </div>
+
+  <p style="margin-top:12px; font-size:12px;"><a href="final2.html" style="color:#7A7AC8; text-decoration:none;">Back to Classify</a></p>
+</div>
+
+<script>
+const API = "https://waste-app-m6ez.onrender.com";
+async function adminLogin(){
+  const username = document.getElementById('adminUser').value;
+  const password = document.getElementById('adminPass').value;
+  try{
+    const res = await fetch(API + "/admin/login", {
+      method:"POST",
+      headers:{ "Content-Type":"application/json" },
+      body: JSON.stringify({ username, password })
+    });
+    const data = await res.json();
+    if(data.success){
+      document.getElementById('loginBox').style.display = 'none';
+      document.getElementById('adminBox').style.display = 'block';
+      loadUsers();
+    } else {
+      document.getElementById('msg').innerText = "Wrong Admin Username / Password!";
+    }
+  }catch(e){ document.getElementById('msg').innerText = "Backend not running - wake Render first!"; }
+}
+async function loadUsers(){
+  const res = await fetch(API + "/admin/users");
+  const data = await res.json();
+  document.getElementById('total').innerText = "Total Users: " + data.total_users;
+  const tb = document.getElementById('tbody');
+  tb.innerHTML = "";
+  data.users.forEach(u => {
+    tb.innerHTML += `<tr><td>${u.id}</td><td>${u.username}</td><td>${u.email}</td><td>${u.total_classifications}</td></tr>`;
+  });
+}
+</script>
+</body>
+</html>
